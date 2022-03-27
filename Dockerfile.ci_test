@@ -1,0 +1,15 @@
+FROM golang:1.17
+
+# Setup #
+
+COPY . /root/app
+
+RUN go get gotest.tools/gotestsum;
+
+# Run the tests #
+
+WORKDIR /root/app
+
+RUN go mod download
+
+ENTRYPOINT ["gotestsum", "--format", "standard-verbose"]
