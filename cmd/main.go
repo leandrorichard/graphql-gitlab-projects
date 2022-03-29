@@ -29,7 +29,7 @@ func main() {
 	// which are the names joined by a comma and the sum of all forks.
 	last := 5
 
-	names, sumOfAllForks, err := domain.ListProjects(last, finder)
+	names, sumOfAllForks, err := domain.ListProjects(logger, last, finder)
 	if err != nil {
 		logger.Fatal("calling domain list projects",
 			zap.Any("error", err))
