@@ -1,6 +1,6 @@
 # graphql-gitlab-projects
 
-It is a simple Golang application that queries the N last projects in the Gitlab GraphQL API.
+It is a simple Golang application that queries the N last projects in the [Gitlab GraphQL API](https://gitlab.com/-/graphql-explorer).
 
 It prints out the names of all returned projects' by a comma delimiter and the sum of all forks.
 
