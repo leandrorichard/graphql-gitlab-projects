@@ -1,12 +1,25 @@
 package domain_test
 
 import (
+	"os"
 	"testing"
+
+	"go.uber.org/zap"
 
 	"github.com/leandrorichard/graphql-gitlab-projects/internal/data"
 	"github.com/leandrorichard/graphql-gitlab-projects/internal/domain"
 	"github.com/stretchr/testify/assert"
 )
+
+var logger *zap.Logger
+
+func TestMain(t *testing.M) {
+	// Initialize logger.
+	logger, _ = zap.NewProduction()
+	defer logger.Sync()
+
+	os.Exit(t.Run())
+}
 
 // projectsFinderStub it is a dummy implementation of the projects' finder.
 type projectsFinderStub struct{}
@@ -32,7 +45,7 @@ func (p *projectsFinderStub) ProjectsList(last int) ([]data.ProjectRecord, error
 }
 
 func TestListProjects(t *testing.T) {
-	names, forks, err := domain.ListProjects(5, &projectsFinderStub{})
+	names, forks, err := domain.ListProjects(logger, 5, &projectsFinderStub{})
 
 	assert.Equal(t, "Heroes of Wesnoth,Leiningen", names)
 	assert.Equal(t, 6, forks)
